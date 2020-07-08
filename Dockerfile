@@ -8,6 +8,6 @@ RUN apk add --no-cache openjdk10
 
 RUN apk add --no-cache screen
 
-RUN  wget -O minecraft_server.jar https://launcher.mojang.com/v1/objects/e9f105b3c5c7e85c7b445249a93362a22f62442d/server.jar
+RUN  wget -O minecraft_server.jar https://launcher.mojang.com/v1/objects/a412fd69db1f81db3f511c1463fd304675244077/server.jar
 
 ENTRYPOINT (screen -d -m sh /usr/local/bin/docker-entrypoint.sh) && sh
