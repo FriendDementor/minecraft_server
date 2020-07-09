@@ -13,3 +13,9 @@ sudo docker exec -it mcsv screen -x
 **IMPORTANT NOTE:** To exit without close the server use the following key combination:
 At the same time **Ctrl+A** and later **D**
 
+## Backup world
+
+```sh
+sudo docker exec -it mcsv tar -czf - -C / world > $(date '+%Y-%m-%d-%H-%M-%S')-backup.tar.gz
+```
+
