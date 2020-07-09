@@ -10,7 +10,7 @@ sudo docker run -it -d -p 25565:25565 --name mcsv frienddementor/simple_mc_serve
 ```sh
 sudo docker exec -it mcsv screen -x
 ```
-**IMPORTANT NOTE:** To exit without close the server use the following key combination:
+**IMPORTANT NOTE:** To exit without close the server press
 **Ctrl+A** and later **D**
 
 ## Backup world
