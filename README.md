@@ -14,11 +14,8 @@ sudo docker exec -it mcsv screen -x
 **Ctrl+A** and later **D**
 
 ## Backup world
-
+Assuming the minecraft server is stopped
 ```sh
-# stop the mc server
-sudo docker exec -it mcsv screen -p 0 -X stuff "stop^M"
-
 # compress the world folder
 sudo docker exec -it mcsv tar -czvf bu.tar.gz world
 
@@ -30,12 +27,9 @@ sudo docker exec -it mcsv rm bu.tar.gz
 ```
 
 ## Restore backup
-
+Assuming the minecraft server is stopped
+Assuming the world folder don't exists
 ```sh
-# if you want to secure backup and you have a world rename instead of delete
-# the actual world folder
-# sudo docker exec -it mcsv mv world world.old
-
 # copy the backup file to container
 sudo docker cp 1970-01-01-00-00-01-backup.tar.gz mcsv:/bu.tar.gz
 
@@ -44,19 +38,22 @@ sudo docker exec -it mcsv tar -xzvf bu.tar.gz
 
 # remove the compresed file of the container
 sudo docker exec -it mcsv rm bu.tar.gz
-
-
-## if you are sure remove the temporary folder
-# sudo docker exec -it mcsv rm -rf world.old
 ```
 
 
 ## Restart the server
 
 ```sh
+# stop the mc server
 sudo docker exec -it mcsv screen -p 0 -X stuff "stop^M"
+
+# stop the container
 sudo docker stop mcsv
+
+# start the container
 sudo docker start mcsv
 ```
+The mc server will start automatically by the entrypoint when the container start
+
 
 Thanks for the response [here](https://unix.stackexchange.com/questions/13953/sending-text-input-to-a-detached-screen)
