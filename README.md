@@ -1,59 +1,33 @@
 # simple_mc_server
-A simplified minecraft server creation
+A simple **Minecraft Java Edition Server** container.
 
-## Create and start minecraft server
-```sh
-sudo docker run -it -d -p 25565:25565 --name mcsv frienddementor/simple_mc_server
+## Running the container
+```
+# docker run --name mcsv \
+  --publish 25565:25565 \
+  --volume minecraft:/minecraft \
+  -d frienddementor/simple_mc_server
 ```
 
-## Enter to minecraft server console
-```sh
-sudo docker exec -it mcsv screen -x
+## Enter the server console
 ```
-**IMPORTANT NOTE:** To exit without close the server press
-**Ctrl+A** and later **D**
-
-## Backup world
-Assuming the minecraft server is stopped
-```sh
-# compress the world folder
-sudo docker exec -it mcsv tar -czvf bu.tar.gz world
-
-# copy the compresed file to host with the actual date
-sudo docker cp mcsv:/bu.tar.gz $(date '+%Y-%m-%d-%H-%M-%S')-backup.tar.gz
-
-# remove the compresed file of the container
-sudo docker exec -it mcsv rm bu.tar.gz
+# docker exec -it mcsv screen -x
 ```
+**IMPORTANT NOTE:** To exit the console without closing the server, detach from it by pressing
+**Ctrl+a** and then **d**.
 
-## Restore backup
-Assuming the minecraft server is stopped
-Assuming the world folder don't exists
-```sh
-# copy the backup file to container
-sudo docker cp 1970-01-01-00-00-01-backup.tar.gz mcsv:/bu.tar.gz
-
-# extract
-sudo docker exec -it mcsv tar -xzvf bu.tar.gz
-
-# remove the compresed file of the container
-sudo docker exec -it mcsv rm bu.tar.gz
+## Stopping the container
 ```
-
-
-## Restart the server
-
-```sh
-# stop the mc server
-sudo docker exec -it mcsv screen -p 0 -X stuff "stop^M"
-
-# stop the container
-sudo docker stop mcsv
-
-# start the container
-sudo docker start mcsv
+# docker stop -t 90 mcsv
 ```
-The mc server will start automatically by the entrypoint when the container start
+Omitting the `-t 90` flag might corrupt the world.
 
+## Restarting the container
+```
+# docker restart -t 90 mcsv
+```
+Don't forget about the `-t 90` flag.
 
-Thanks for the response [here](https://unix.stackexchange.com/questions/13953/sending-text-input-to-a-detached-screen)
+## Acknowledgements
+Thanks for the response [here](https://unix.stackexchange.com/questions/13953/sending-text-input-to-a-detached-screen) on convenient GNU Screen usage.
+Thanks to **Hynek Schlawack** for his [post](https://hynek.me/articles/docker-signals/) on capturing signals inside Docker containers.
