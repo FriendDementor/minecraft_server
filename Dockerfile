@@ -1,15 +1,13 @@
-FROM alpine:3.10.3
-
-COPY docker-entrypoint.sh /usr/local/bin/
+FROM alpine:3.12.0
 
 RUN apk --update upgrade 
-
 RUN apk add --no-cache openjdk10
-
 RUN apk add --no-cache screen
 
 RUN mkdir /minecraft
 
-RUN  wget -O /minecraft/minecraft_server.jar https://launcher.mojang.com/v1/objects/a412fd69db1f81db3f511c1463fd304675244077/server.jar
+# Minecraft Java Edition Server ver. 1.16.2.
+RUN wget -O /minecraft_server.jar https://launcher.mojang.com/v1/objects/c5f6fb23c3876461d46ec380421e42b289789530/server.jar
 
-ENTRYPOINT (screen -d -m sh /usr/local/bin/docker-entrypoint.sh) && sh
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
