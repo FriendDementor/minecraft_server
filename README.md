@@ -28,5 +28,6 @@ Omitting the `-t 90` flag might corrupt the world.
 ```
 Don't forget about the `-t 90` flag.
 
+## Acknowledgements
 Thanks for the response [here](https://unix.stackexchange.com/questions/13953/sending-text-input-to-a-detached-screen) on convenient GNU Screen usage.
 Thanks to **Hynek Schlawack** for his [post](https://hynek.me/articles/docker-signals/) on capturing signals inside Docker containers.
